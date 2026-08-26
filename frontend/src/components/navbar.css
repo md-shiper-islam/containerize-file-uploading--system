@@ -1,0 +1,411 @@
+/* =========================================================
+   VAULTBOX NAVBAR
+   Industry-style SaaS Navigation
+   ========================================================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+
+  background:black;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid #eaecf0;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.nav-container {
+  max-width: 1240px;
+
+  height: 72px;
+
+  margin: 0 auto;
+  padding: 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #101828;
+
+  text-decoration: none;
+
+  font-size: 17px;
+  font-weight: 750;
+
+  letter-spacing: -0.025em;
+
+  transition: opacity 0.2s ease;
+}
+
+.brand:hover {
+  opacity: 0.78;
+}
+
+
+/* Logo */
+
+.brand-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #111827;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 750;
+
+  box-shadow:
+    0 4px 10px rgba(17, 24, 39, 0.15);
+}
+
+
+/* =========================================================
+   NAV LINKS
+   ========================================================= */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+}
+
+
+.nav-links a {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+
+  padding: 0 13px;
+
+  border-radius: 8px;
+
+  color: #667085;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 550;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.nav-links a:hover {
+  color: #101828;
+
+  background: #f5f6f8;
+}
+
+
+/* =========================================================
+   ACTIVE LINK
+   ========================================================= */
+
+.nav-links a.nav-active {
+  color: #101828;
+
+  background: #f2f4f7;
+
+  font-weight: 650;
+}
+
+
+/* Small active indicator */
+
+.nav-links a.nav-active::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: 4px;
+  left: 50%;
+
+  width: 14px;
+  height: 2px;
+
+  transform: translateX(-50%);
+
+  border-radius: 999px;
+
+  background: #111827;
+}
+
+
+/* =========================================================
+   GET STARTED
+   ========================================================= */
+
+.nav-links .nav-register {
+  height: 40px;
+
+  margin-left: 6px;
+
+  padding: 0 16px;
+
+  border-radius: 8px;
+
+  background: #111827;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 12px rgba(17, 24, 39, 0.12);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.nav-links .nav-register:hover {
+  background: #273244;
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 18px rgba(17, 24, 39, 0.18);
+}
+
+
+/* Don't show active underline on CTA */
+
+.nav-links .nav-register::after {
+  display: none;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.nav-logout {
+  height: 40px;
+
+  margin-left: 6px;
+
+  padding: 0 15px;
+
+  border: 1px solid #e4e7ec;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #475467;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.nav-logout:hover {
+  color: #b42318;
+
+  border-color: #fecdca;
+
+  background: #fff5f4;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DESKTOP NAV SEPARATOR
+   ========================================================= */
+
+.nav-links .nav-register,
+.nav-links .nav-logout {
+  position: relative;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .nav-container {
+    height: 66px;
+
+    padding: 0 20px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-links {
+    gap: 3px;
+  }
+
+  .nav-links a {
+    padding: 0 9px;
+
+    font-size: 12px;
+  }
+
+  .nav-links .nav-register {
+    padding: 0 12px;
+  }
+
+  .nav-logout {
+    padding: 0 12px;
+
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+  .nav-container {
+    height: auto;
+
+    min-height: 64px;
+
+    padding: 10px 16px;
+
+    gap: 12px;
+  }
+
+  .brand {
+    flex-shrink: 0;
+
+    font-size: 15px;
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+  }
+
+  .nav-links {
+    gap: 3px;
+
+    margin-left: auto;
+  }
+
+  .nav-links a {
+    height: 36px;
+
+    padding: 0 8px;
+
+    font-size: 11px;
+  }
+
+  .nav-links .nav-register {
+    height: 36px;
+
+    margin-left: 2px;
+
+    padding: 0 10px;
+
+    font-size: 11px;
+  }
+
+  .nav-logout {
+    height: 36px;
+
+    margin-left: 2px;
+
+    padding: 0 10px;
+
+    font-size: 11px;
+  }
+
+  .nav-links a.nav-active::after {
+    bottom: 3px;
+
+    width: 10px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  .nav-container {
+    padding: 9px 12px;
+  }
+
+  .brand span:last-child {
+    display: none;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-links a {
+    padding: 0 6px;
+  }
+
+  .nav-links .nav-register,
+  .nav-logout {
+    padding: 0 8px;
+  }
+}
