@@ -44,9 +44,9 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 50px;
 
-  color: #101828;
+  color: white;
 
   text-decoration: none;
 
@@ -77,7 +77,7 @@
 
   background: #111827;
 
-  color: #ffffff;
+  color: white;
 
   font-size: 13px;
   font-weight: 750;

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const fileSchema = new mongoose.Schema({
+  cloudinaryId: { type: String, required: true },
+  resourceType: {         
+    type: String,
+    default: 'image'
+  },
   fileName: {
     type: String,
     required: true

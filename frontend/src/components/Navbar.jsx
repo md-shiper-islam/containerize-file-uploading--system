@@ -16,11 +16,11 @@ const Navbar = () => {
   return (
     <header className="navbar">
       <div className="nav-container">
-
+{/* 
         <Link to="/" className="brand">
-          <span className="brand-icon">V</span>
-          <span>VaultBox</span>
-        </Link>
+          <span className="brand-icon">VaultBox</span>
+          
+        </Link> */}
 
         <nav className="nav-links">
 
