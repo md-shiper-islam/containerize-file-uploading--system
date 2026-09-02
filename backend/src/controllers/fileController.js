@@ -9,19 +9,24 @@ const uploadFile = async (req, res) => {
       return res.status(400).json({ message: 'কোনো file পাওয়া যায়নি' });
     }
 
-    // mimetype দেখে resource_type ঠিক করা
-    let resourceType = 'raw'; // default (pdf, docx, ইত্যাদি)
-    if (req.file.mimetype.startsWith('image/')) {
-      resourceType = 'image';
-    } else if (req.file.mimetype.startsWith('video/')) {
-      resourceType = 'video';
-    }
+
+let resourceType = 'raw'; // default: docx, zip, etc.
+
+if (req.file.mimetype.startsWith('image/')) {
+  resourceType = 'image';
+}
+else if (req.file.mimetype === 'application/pdf') {
+    resourceType = 'raw';
+} 
+else if (req.file.mimetype.startsWith('video/')) {
+  resourceType = 'video';
+}
 
     const newFile = await File.create({
       fileName: req.file.originalname,
       fileUrl: req.file.path,
       cloudinaryId: req.file.filename,
-      resourceType: resourceType,  // ✅ এখন সঠিকভাবে সেট হবে
+      resourceType: resourceType,  // mimetype অনুযায়ী resource_type
       fileType: req.file.mimetype,
       fileSize: req.file.size,
       isPublic: req.body.isPublic === 'true',
@@ -55,7 +60,7 @@ const getMyFiles = async (req, res) => {
     console.log(' Cached Data:', cachedFiles ? 'FOUND' : 'NOT FOUND');
 
     if (cachedFiles) {
-      console.log(' Cache HIT - Redis থেকে data দেওয়া হলো');
+      console.log(' Cache HIT -  data recives to Redis');
 
       return res.status(200).json({
         files: JSON.parse(cachedFiles),
@@ -63,17 +68,17 @@ const getMyFiles = async (req, res) => {
       });
     }
 
-    console.log(' Cache MISS - MongoDB থেকে data আনা হচ্ছে');
+    console.log(' Cache MISS -  data recives  to MongoDB');
 
     const files = await File.find({
       owner: req.userId
-    }).sort({ createdAt: -1 });
+    }).sort({ createdAt: -1 }).lean().select('-__v');
 
     await redisClient.set(
       cacheKey,
       JSON.stringify(files),
       {
-        EX: 60*60 // 1 hour
+        EX: 60*60*60 // 1 hour
       }
     );
 

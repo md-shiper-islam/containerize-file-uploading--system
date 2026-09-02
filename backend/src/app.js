@@ -21,6 +21,12 @@ app.use("/api/files", fileRoutes);
 app.get("/", (req, res) => {
     res.status(200).send("Welcome to the Authentication API");
 });
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        message: 'Backend is healthy'
+    });
+});
 
 app.use((req,res,next)=>{
    res.status(404).json({

@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const fileSchema = new mongoose.Schema({
-  cloudinaryId: { type: String, required: true },
+  cloudinaryId: {
+     type: String, 
+     required: true 
+    },
   resourceType: {         
     type: String,
     default: 'image'
@@ -34,5 +37,7 @@ const fileSchema = new mongoose.Schema({
     required: true
   }
 }, { timestamps: true });
+
+
 
 module.exports = mongoose.model('File', fileSchema);
