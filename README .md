@@ -1,19 +1,22 @@
-# 🔐 Secure File Storage Service
+# Secure File Storage Service
 
 A production-grade file storage API built with Node.js, Express, MongoDB, and Redis. Designed for secure, scalable file management with authentication, caching, and cloud integration.
 
+[![React](https://img.shields.io/badge/React-19%2B-blue)](https://react.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express.js-4.18-blue)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green)](https://www.mongodb.com/)
 [![Redis](https://img.shields.io/badge/Redis-Caching-red)](https://redis.io/)
+[![Nginx](https://img.shields.io/badge/Nginx-Reverse%20Proxy-green)](https://nginx.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://www.docker.com/)
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 - [Features](#features)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
+- [Nginx Reverse Proxy](#nginx-reverse-proxy)
 - [Quick Start](#quick-start)
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
@@ -22,16 +25,18 @@ A production-grade file storage API built with Node.js, Express, MongoDB, and Re
 
 ---
 
-## ✨ Features
+##  Features
 
 ### Core Functionality
-- ✅ **Secure File Upload/Download** - Support for images, documents, and videos up to 100MB
-- ✅ **JWT Authentication** - Token-based user authentication with refresh tokens
-- ✅ **Role-Based Access Control** - Private and public file sharing
-- ✅ **Per-Resource Authorization** - Only file owner can delete/modify
-- ✅ **Redis Caching** - Cache-aside pattern with automatic invalidation
-- ✅ **Cloud Storage** - Cloudinary integration for reliable file storage
-- ✅ **Containerization** - Docker setup for consistent deployment
+-  **Secure File Upload/Download** - Support for images, documents, and videos up to 100MB
+-  **JWT Authentication** - Token-based user authentication with refresh tokens
+-  **Role-Based Access Control** - Private and public file sharing
+-  **Per-Resource Authorization** - Only file owner can delete/modify
+-  **Redis Caching** - Cache-aside pattern with automatic invalidation
+-  **Cloud Storage** - Cloudinary integration for reliable file storage
+-  **React Frontend** - Responsive client dashboard for authentication and filemanagement
+-  **Nginx Reverse Proxy** - Routes frontend and API traffic through a single entry point
+-  **Containerization** - Docker setup for consistent deployment
 
 ### Performance & Reliability
 - **Cache-Aside Pattern** - 60-second TTL on file listings
@@ -42,7 +47,7 @@ A production-grade file storage API built with Node.js, Express, MongoDB, and Re
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -74,21 +79,23 @@ A production-grade file storage API built with Node.js, Express, MongoDB, and Re
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
+| **Frontend** | React.js + Vite | User interface & dashboard |
+| **Reverse Proxy** | Nginx | Request routing & reverse proxy |
 | **Runtime** | Node.js 18+ | JavaScript runtime |
 | **Framework** | Express.js | Web server & routing |
 | **Database** | MongoDB | Document storage |
 | **Cache** | Redis | Performance optimization |
 | **Storage** | Cloudinary | Cloud file hosting |
 | **Auth** | JWT + bcrypt | Security |
-| **Container** | Docker | Deployment |
+| **Container** | Docker | Deployment & isolation |
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js 18+ installed
@@ -157,7 +164,7 @@ curl http://localhost:5000/api/health
 
 ---
 
-## 📡 API Documentation
+##  API Documentation
 
 ### Authentication
 
@@ -237,9 +244,9 @@ Authorization: Bearer <your_token>
 ```
 
 **Features:**
-- ✅ Uses Redis cache (60-second TTL)
-- ✅ Pagination support
-- ✅ Only returns user's own files
+-  Uses Redis cache (60-second TTL)
+-  Pagination support
+-  Only returns user's own files
 
 **Response** (200):
 ```json
@@ -298,10 +305,23 @@ Content-Type: application/json
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
-```
+```text
 file-storage-project/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── App.jsx
+│   ├── Dockerfile
+│   └── package.json
+│
+├── nginx/
+│   ├── nginx.conf
+│   └── Dockerfile
+│
 ├── src/
 │   ├── config/
 │   │   ├── database.js          # MongoDB connection
@@ -335,7 +355,7 @@ file-storage-project/
 │   └── server.js                # Entry point
 │
 ├── .env.example                 # Environment template
-├── docker-compose.yml           # Local dev setup
+├── docker-compose.yml           # Frontend + API + Nginx services
 ├── Dockerfile                   # Container config
 ├── package.json
 └── README.md
@@ -343,7 +363,7 @@ file-storage-project/
 
 ---
 
-## ⚡ Performance Optimizations
+##  Performance Optimizations
 
 ### 1. Redis Caching Strategy
 ```javascript
@@ -408,46 +428,119 @@ async function invalidateUserCache(userId) {
 
 ---
 
-## 🔒 Security Features
+##  Security Features
 
 ### Authentication
-- ✅ **JWT Tokens** - Stateless, secure token-based auth
-- ✅ **Password Hashing** - bcrypt with 10 salt rounds
-- ✅ **Refresh Tokens** - Separate refresh token flow
-- ✅ **Token Expiry** - Short-lived access tokens (7 days)
+-  **JWT Tokens** - Stateless, secure token-based auth
+-  **Password Hashing** - bcrypt with 10 salt rounds
+-  **Refresh Tokens** - Separate refresh token flow
+-  **Token Expiry** - Short-lived access tokens (7 days)
 
 ### Authorization
-- ✅ **Per-Resource Checks** - File ownership validation
-- ✅ **Role-Based Access** - Public vs private files
-- ✅ **Admin Operations** - Only file owner can delete
+-  **Per-Resource Checks** - File ownership validation
+-  **Role-Based Access** - Public vs private files
+-  **Admin Operations** - Only file owner can delete
 
 ### Input Validation
-- ✅ **File Size Limits** - 100MB max per file
-- ✅ **File Type Validation** - Whitelist allowed formats
-- ✅ **Sanitization** - Remove malicious input
-- ✅ **Email Validation** - RFC 5322 compliance
+-  **File Size Limits** - 100MB max per file
+-  **File Type Validation** - Whitelist allowed formats
+-  **Sanitization** - Remove malicious input
+-  **Email Validation** - RFC 5322 compliance
 
 ### API Security
-- ✅ **HTTPS Ready** - Node.js works with reverse proxy (Nginx)
-- ✅ **CORS Configuration** - Restrict cross-origin requests
-- ✅ **Rate Limiting** - Prevent abuse (future)
-- ✅ **SQL Injection Prevention** - Using Mongoose (not raw queries)
+-  **HTTPS Ready** - Node.js works with reverse proxy (Nginx)
+-  **CORS Configuration** - Restrict cross-origin requests
+-  **Rate Limiting** - Prevent abuse (future)
+-  **SQL Injection Prevention** - Using Mongoose (not raw queries)
 
 ---
 
-## 🐳 Docker Deployment
+
+##  Nginx Reverse Proxy
+
+Nginx acts as the single entry point for the application.
+
+```text
+Browser
+   │
+   ▼
+Nginx :80
+   ├── /     → React Frontend
+   └── /api/ → Node.js / Express Backend
+```
+
+Example `nginx/nginx.conf`:
+
+```nginx
+events {}
+
+http {
+    upstream frontend {
+        server frontend:5173;
+    }
+
+    upstream backend {
+        server backend:3000;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://frontend;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        location /api/ {
+            proxy_pass http://backend;
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+```
+
+The React application can call the API through the same origin using:
+
+```javascript
+axios.create({
+  baseURL: "/api"
+});
+```
+
+This keeps the frontend and backend behind one public entry point and makes the architecture easier to extend with load balancing, HTTPS termination, and other reverse-proxy features.
+
+##  Docker Deployment
 
 ### Local Development with Docker
 
 ```bash
 # Start all services
-docker-compose up
-
-# Services running:
-# - API: http://localhost:5000
-# - MongoDB: localhost:27017
-# - Redis: localhost:6379
+docker compose up --build
 ```
+
+Recommended service flow:
+
+```text
+Browser
+   ↓
+Nginx :80
+   ├── React Frontend
+   └── Node.js API
+          ├── MongoDB
+          ├── Redis
+          └── Cloudinary
+```
+
+The public application entry point is Nginx, while React and the Node.js API communicate through the reverse proxy.
+
 
 ### Production Deployment
 
@@ -464,7 +557,7 @@ docker run -p 5000:5000 \
 
 ---
 
-## 📊 Performance Metrics
+##  Performance Metrics
 
 From production testing:
 
@@ -476,7 +569,7 @@ From production testing:
 
 ---
 
-## 🐛 Error Handling
+##  Error Handling
 
 The API returns structured error responses:
 
@@ -501,7 +594,7 @@ Common error codes:
 
 ---
 
-## 🔄 Continuous Integration/Deployment
+##  Continuous Integration/Deployment (in Future)
 
 ### GitHub Actions (CI/CD)
 ```yaml
@@ -514,7 +607,7 @@ Common error codes:
 
 ---
 
-## 📈 Future Improvements
+##  Future Improvements
 
 - [ ] Advanced file sharing (expiring links, password-protected)
 - [ ] Virus scanning integration
@@ -540,11 +633,11 @@ Backend Engineer | Node.js & System Design Specialist
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss.
 
 ---
-
-**Last Updated:** January 2024  
+s
+**Last Updated:** September 2026  
 **Version:** 1.0.0
